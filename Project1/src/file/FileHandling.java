@@ -10,14 +10,16 @@ import java.util.ArrayList;
 import slangDictonary.SlangWord ;
 public class FileHandling {
 	
-	public void readFile() {
+	public void readFile(ArrayList<SlangWord> slang) {
 		try {
 		
-			ArrayList<SlangWord> slang = new ArrayList<SlangWord>();
+			//ArrayList<SlangWord> 
+			//slang = new ArrayList<SlangWord>();
+			
 			BufferedReader br = new BufferedReader(new FileReader("/Users/macbookpro/git/slangDictionary/Project1/src/file/slang.txt"));
 			String str ;
 			int i = 0 ;
-			while (i<2)
+			while (i<700)
 			{
 				str = br.readLine();
 				
@@ -28,10 +30,6 @@ public class FileHandling {
 				
 			}
 			br.close();
-			for(int ii = 0 ; ii<slang.size();ii++) {
-				System.out.println(slang.get(ii).slangWord);
-			}
-			
 		}
 		catch(IOException ie) {
             ie.printStackTrace();
