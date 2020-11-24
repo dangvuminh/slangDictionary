@@ -5,9 +5,12 @@ import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import slangDictonary.SlangWord ;
+import java.io.FileWriter; 
+
 public class FileHandling {
 	
 	public void readFile(ArrayList<SlangWord> slang) {
@@ -49,6 +52,22 @@ public class FileHandling {
 			}
 			return slang;
 		
+	}
+	
+	public void writeHistory(String line) {
+		try {
+		      FileWriter myWriter = new FileWriter("/Users/macbookpro/git/slangDictionary/Project1/src/file/history.txt",true);
+		      //while(nyWriter!=null) {
+		    	  
+		      //}
+		      myWriter.write(line);
+		      myWriter.write("\n");
+		      myWriter.close();
+		      System.out.println("Successfully wrote to the file.");
+		    } catch (IOException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }
 	}
 	
 }
