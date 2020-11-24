@@ -22,7 +22,7 @@ public class FileHandling {
 			BufferedReader br = new BufferedReader(new FileReader("/Users/macbookpro/git/slangDictionary/Project1/src/file/slang.txt"));
 			String str ;
 			int i = 0 ;
-			while (i<700)
+			while (i<100)
 			{
 				str = br.readLine();
 				
@@ -48,18 +48,43 @@ public class FileHandling {
 				if(c == '`') {
 				slang.slangWord = line.substring(0, i)	;
 				slang.definition = line.substring(i+1, line.length());
+				slang.keyWord=getKeyWord(slang.definition);
 				}
+				
 			}
+//		for(int i = 0 ; i<slang.keyWord.size();i++) {
+//			System.out.println(slang.keyWord.get(i));
+//		}
 			return slang;
 		
+	}
+	
+	static ArrayList<String> getKeyWord(String definition) {
+		int j = 0;
+		boolean isEndingSpace = true;
+		ArrayList<String>  arr = new ArrayList<String>();
+		for(int i = 0 ; i<definition.length(); i++) {
+			if(definition.charAt(i) == '|'   ) {
+				arr.add(definition.substring(j, i).replaceAll("\\s+",""));
+				j=i+2;
+				isEndingSpace = false;
+			} else if(( i == definition.length()-1 )) {
+				arr.add(definition.substring(j, i+1).replaceAll("\\s+",""));
+				
+			    
+			} else if(definition.charAt(i) == ' ' && isEndingSpace == true) {
+				arr.add(definition.substring(j, i+1).replaceAll("\\s+",""));
+				j=i;
+				isEndingSpace = true;
+			}
+		}
+		return arr;
 	}
 	
 	public void writeHistory(String line) {
 		try {
 		      FileWriter myWriter = new FileWriter("/Users/macbookpro/git/slangDictionary/Project1/src/file/history.txt",true);
-		      //while(nyWriter!=null) {
-		    	  
-		      //}
+		      System.out.println(line);
 		      myWriter.write(line);
 		      myWriter.write("\n");
 		      myWriter.close();
