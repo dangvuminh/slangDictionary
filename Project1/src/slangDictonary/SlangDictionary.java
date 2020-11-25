@@ -51,7 +51,23 @@ public class SlangDictionary {
 			
 			if(slang.get(i).slangWord.compareTo(key) == 0) {
 				System.out.println("This slang has already existed!");
-				System.out.println("1)Overrride it ....2)Duplicate it");
+				System.out.println("1)Override it ....2)Duplicate it");
+				
+				 Scanner myLine = new Scanner(System.in);
+				 int num = myLine.nextInt();
+				 if(num == 1) {
+					 editSlang(key,key,definition,slang);
+					 System.out.println("Overriden!!");
+						
+				 } else {
+					 FileHandling file  = new FileHandling();
+					 String filename = "/Users/macbookpro/git/slangDictionary/Project1/src/file/slang.txt";
+					 String newLine = slang.get(i).slangWord + "`" + slang.get(i).definition;
+					 file.writeOnFile(filename, newLine);
+					 System.out.println("Duplicated!!");
+						
+				 }
+				 
 				count ++;
 				break;
 				
@@ -130,7 +146,7 @@ public class SlangDictionary {
 		System.out.println("3.Show your history..");
 		System.out.println("4.Add a new slang..");
 		System.out.println("5.Edit a slang..");
-		System.out.println("5.Delete a slang..");
+		System.out.println("6.Delete a slang..");
 		
 		System.out.println("Enter the number please:");
 		Scanner myLine;

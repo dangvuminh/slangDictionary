@@ -103,7 +103,7 @@ public class FileHandling {
 	try {
 		File file = new File(filename);
 		if(file.createNewFile()) {
-			System.out.println("OK Created!!");
+			System.out.println("...");
 		}
 	}catch (IOException e) {
 	      System.out.println("An error occurred.");
@@ -114,7 +114,7 @@ public class FileHandling {
 	public void deleteFile(String filename) {
 		File file = new File(filename);
 		if(file.delete()) {
-			System.out.println("Deleted!!");
+			System.out.println("...");
 		}
 	}
 	
