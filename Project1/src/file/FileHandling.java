@@ -13,13 +13,13 @@ import java.io.FileWriter;
 
 public class FileHandling {
 	
-	public void readFile(ArrayList<SlangWord> slang) {
+	public void readFile(ArrayList<SlangWord> slang,String filename) {
 		try {
 		
 			//ArrayList<SlangWord> 
 			//slang = new ArrayList<SlangWord>();
 			
-			BufferedReader br = new BufferedReader(new FileReader("/Users/macbookpro/git/slangDictionary/Project1/src/file/slang.txt"));
+			BufferedReader br = new BufferedReader(new FileReader(filename));
 			String str ;
 			int i = 0 ;
 			//while (i<900)

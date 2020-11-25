@@ -135,6 +135,21 @@ public class SlangDictionary {
 		}
 	}
 	
+	static void resetList() {
+		String slangFile ="/Users/macbookpro/git/slangDictionary/Project1/src/file/slang.txt";
+		String originalFile = "/Users/macbookpro/git/slangDictionary/Project1/src/file/original.txt";
+		FileHandling fileHndl = new FileHandling();
+		ArrayList<SlangWord> slang = new ArrayList<SlangWord>();
+		fileHndl.readFile(slang,originalFile);
+		int count = 0 ;
+		fileHndl.deleteFile(slangFile);
+		fileHndl.createFile(slangFile);
+		for(int i = 0 ; i<slang.size();i++) {
+			String line = slang.get(i).slangWord + "`" + slang.get(i).definition;
+			fileHndl.writeOnFile(slangFile,line );
+		}
+	}
+	
 	public static void main(String[] args) {
 		
 		//SlangDictionary sl = new SlangDictionary();
@@ -155,9 +170,9 @@ public class SlangDictionary {
 		int num = myLine.nextInt();  
 		
 		FileHandling file = new FileHandling();
-		
+		String filename = "/Users/macbookpro/git/slangDictionary/Project1/src/file/slang.txt";
 		ArrayList<SlangWord> slang = new ArrayList<SlangWord>();
-		file.readFile(slang);
+		file.readFile(slang,filename);
 		
 		
 		
@@ -216,6 +231,12 @@ public class SlangDictionary {
 			myLine = new Scanner(System.in);
 			String key = myLine.nextLine();
 			deleteSlang(key,slang);
+			break;
+		}
+		
+		case 7:{
+			System.out.println("Reseting....");
+			resetList();
 			break;
 		}
 		}
