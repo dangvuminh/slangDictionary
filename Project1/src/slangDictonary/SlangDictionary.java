@@ -30,7 +30,7 @@ public class SlangDictionary {
 		for(int i = 0 ; i < slang.size(); i++) {
 			for(int j = 0;j<slang.get(i).keyWord.size(); j++ ) {
 				//always checking null 
-				if(slang.get(i) == null)
+ 				if(slang.get(i) == null)
 					break;
 				if(slang.get(i).keyWord.get(j).compareToIgnoreCase(key) == 0) {
 					System.out.println(slang.get(i).slangWord);
@@ -51,8 +51,10 @@ public class SlangDictionary {
 			
 			if(slang.get(i).slangWord.compareTo(key) == 0) {
 				System.out.println("This slang has already existed!");
+				System.out.println("1)Overrride it ....2)Duplicate it");
 				count ++;
 				break;
+				
 			}
 			}
 		if(count == 0) {
@@ -89,6 +91,34 @@ public class SlangDictionary {
 		}
 	}
 	
+	static void editSlang(String key,String newKey,String newDefinition,ArrayList<SlangWord> slang ) {
+		String filename ="/Users/macbookpro/git/slangDictionary/Project1/src/file/slang.txt";
+		FileHandling fileHndl = new FileHandling();
+		int count = 0 ;
+		fileHndl.deleteFile(filename);
+		fileHndl.createFile(filename);
+		for(int i = 0 ; i<slang.size();i++) {
+			//always checking null 
+			if(slang.get(i).slangWord != null) {
+				if(slang.get(i).slangWord.compareTo(key) == 0) {
+					String line = newKey + "`" + newDefinition;
+					fileHndl.writeOnFile(filename, line);
+					count ++;
+				} else {
+					String line = slang.get(i).slangWord + "`" + slang.get(i).definition;
+					fileHndl.writeOnFile(filename, line);
+				}  
+				
+			}
+			
+		}
+		if(count == 0) {
+			System.out.println("Found no slang to edit");
+		} else {
+			System.out.println("Edited the slang");
+		}
+	}
+	
 	public static void main(String[] args) {
 		
 		//SlangDictionary sl = new SlangDictionary();
@@ -99,6 +129,7 @@ public class SlangDictionary {
 		System.out.println("2.Find the slang by definition..");
 		System.out.println("3.Show your history..");
 		System.out.println("4.Add a new slang..");
+		System.out.println("5.Edit a slang..");
 		System.out.println("5.Delete a slang..");
 		
 		System.out.println("Enter the number please:");
@@ -148,12 +179,28 @@ public class SlangDictionary {
 			addSlang(key,definition,slang);
 			break;
 		}
-		
-		case 5:{
+		case 5: {
+			System.out.println("Enter the key word you want to change:");
+			myLine = new Scanner(System.in);
+			String key = myLine.nextLine();
+			
+			System.out.println("Enter the new key word you:");
+			myLine = new Scanner(System.in);
+			String newKey = myLine.nextLine();
+			
+			System.out.println("Enter the definition for your new slang:");
+			myLine = new Scanner(System.in);
+			String newDefinition = myLine.nextLine();
+			
+			editSlang(key,newKey,newDefinition,slang);
+			break;
+		}
+		case 6:{
 			System.out.println("Enter the key word you want to delete please:");
 			myLine = new Scanner(System.in);
 			String key = myLine.nextLine();
 			deleteSlang(key,slang);
+			break;
 		}
 		}
 		
