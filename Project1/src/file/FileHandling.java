@@ -22,13 +22,18 @@ public class FileHandling {
 			BufferedReader br = new BufferedReader(new FileReader("/Users/macbookpro/git/slangDictionary/Project1/src/file/slang.txt"));
 			String str ;
 			int i = 0 ;
-			while (i<100)
+			//while (i<900)
+			while (true)
 			{
 				str = br.readLine();
 				
-				slang.add(separateString(str));
+				//slang arratlist can get null so make sure put the condition checking null before 
+				// the string is added
 				if(str == null)
 					break;
+				
+				slang.add(separateString(str));
+				
 				i++;
 				
 			}
@@ -81,18 +86,73 @@ public class FileHandling {
 		return arr;
 	}
 	
-	public void writeHistory(String line) {
+	public void writeOnFile(String file,String data) {
 		try {
-		      FileWriter myWriter = new FileWriter("/Users/macbookpro/git/slangDictionary/Project1/src/file/history.txt",true);
-		      System.out.println(line);
-		      myWriter.write(line);
+			 FileWriter myWriter = new FileWriter(file,true);
+		      myWriter.write(data);
 		      myWriter.write("\n");
 		      myWriter.close();
-		      System.out.println("Successfully wrote to the file.");
-		    } catch (IOException e) {
+		}
+		catch (IOException e) {
 		      System.out.println("An error occurred.");
 		      e.printStackTrace();
 		    }
+	}
+	
+	public void createFile(String filename) {
+	try {
+		File file = new File(filename);
+		if(file.createNewFile()) {
+			System.out.println("OK Created!!");
+		}
+	}catch (IOException e) {
+	      System.out.println("An error occurred.");
+	      e.printStackTrace();
+	      }
+	}
+	
+	public void deleteFile(String filename) {
+		File file = new File(filename);
+		if(file.delete()) {
+			System.out.println("Deleted!!");
+		}
+	}
+	
+	public void writeHistory(String line) {
+//		try {
+//		      FileWriter myWriter = new FileWriter("/Users/macbookpro/git/slangDictionary/Project1/src/file/history.txt",true);
+//		      System.out.println(line);
+//		      myWriter.write(line);
+//		      myWriter.write("\n");
+//		      myWriter.close();
+//		      System.out.println("Successfully wrote to the file.");
+//		    } catch (IOException e) {
+//		      System.out.println("An error occurred.");
+//		      e.printStackTrace();
+//		    }
+		String file = "/Users/macbookpro/git/slangDictionary/Project1/src/file/history.txt";
+		FileHandling fileHndl = new FileHandling();
+		fileHndl.writeOnFile(file, line);
+	}
+	
+	public void printHistory() {
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("/Users/macbookpro/git/slangDictionary/Project1/src/file/history.txt"));
+			String str ;
+			while (true)
+			{
+				str = br.readLine();
+				System.out.println(str);
+				
+				if(str == null)
+					break;
+				
+			}
+			br.close();
+		}
+		catch(IOException ie) {
+            ie.printStackTrace();
+        }  
 	}
 	
 }
