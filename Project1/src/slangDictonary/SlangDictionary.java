@@ -7,8 +7,7 @@ import slangDictonary.SlangWord;
 import java.io.File;
 import java.lang.Math; 
 
-public class SlangDictionary {
-	
+public class SlangDictionary { 
 	// For service 1 : Find the meaning when you enter the slang
 	static void SearchKey(String key,ArrayList<SlangWord> slang) {
 		int count = 0 ;
@@ -65,7 +64,7 @@ public class SlangDictionary {
 					//you want to duplicate	
 				 } else {
 					 FileHandling file  = new FileHandling();
-					 String filename = "/Users/macbookpro/git/slangDictionary/Project1/src/file/slang.txt";
+					 String filename = "slang.txt";
 					 String newLine = slang.get(i).slangWord + "`" + slang.get(i).definition;
 					 file.writeOnFile(filename, newLine);//append at the end of file
 					 System.out.println("Duplicated!!");
@@ -79,7 +78,7 @@ public class SlangDictionary {
 			} //you can add a new one cuz the entered word is totally new
 		if(count == 0) {
 			FileHandling fileHndl =  new FileHandling();
-			String file = "/Users/macbookpro/git/slangDictionary/Project1/src/file/slang.txt";
+			String file = "slang.txt";
 			String newLine = key + "`" + definition;
 			fileHndl.writeOnFile(file, newLine);
 			System.out.println("Successfully adding a new slang");
@@ -87,7 +86,7 @@ public class SlangDictionary {
 	}
 	
 	static void deleteSlang(String key,ArrayList<SlangWord> slang) {
-		String filename ="/Users/macbookpro/git/slangDictionary/Project1/src/file/slang.txt";
+		String filename ="slang.txt";
 		FileHandling fileHndl = new FileHandling();
 		int count = 0 ;
 		fileHndl.deleteFile(filename);//delete the file before a slang is chosen to be removed
@@ -112,7 +111,7 @@ public class SlangDictionary {
 	}
 	
 	static void editSlang(String key,String newKey,String newDefinition,ArrayList<SlangWord> slang ) {
-		String filename ="/Users/macbookpro/git/slangDictionary/Project1/src/file/slang.txt";
+		String filename ="slang.txt";
 		FileHandling fileHndl = new FileHandling();
 		int count = 0 ;
 		fileHndl.deleteFile(filename);//delete the file before a slang is chosen to be removed
@@ -140,8 +139,8 @@ public class SlangDictionary {
 	}
 	
 	static void resetList() {
-		String slangFile ="/Users/macbookpro/git/slangDictionary/Project1/src/file/slang.txt";
-		String originalFile = "/Users/macbookpro/git/slangDictionary/Project1/src/file/original.txt";
+		String slangFile ="slang.txt";
+		String originalFile = "original.txt";
 		FileHandling fileHndl = new FileHandling();
 		ArrayList<SlangWord> slang = new ArrayList<SlangWord>();
 		fileHndl.readFile(slang,originalFile);
@@ -172,7 +171,6 @@ public class SlangDictionary {
         SlangWord line = new SlangWord();
         for(int i = 0 ; i<slang.size();i++) {
         	if(i == rand) {
-        		//String line = slang.get(i).slangWord + "`" + slang.get(i).definition;
         		
         		line.slangWord =slang.get(i).slangWord;
         		line.definition = slang.get(i).definition;
@@ -243,7 +241,7 @@ public class SlangDictionary {
 	public static void main(String[] args) {
 		int click=-1 ;
 		while(click != 0) {
-			//SlangDictionary sl = new SlangDictionary();
+			SlangDictionary sl = new SlangDictionary();
 			System.out.println("Hello my friend");
 			System.out.println("Welcome to Slang Word Dictionary");
 			System.out.println("We are offering you some services below for you:");
@@ -262,10 +260,13 @@ public class SlangDictionary {
 			myLine = new Scanner(System.in);
 			int num = myLine.nextInt();  
 			
+			//------------------------Put the data in txt file into the ArrayList
 			FileHandling file = new FileHandling();
-			String filename = "/Users/macbookpro/git/slangDictionary/Project1/src/file/slang.txt";
+			//String filename = "/Users/macbookpro/git/slangDictionary/Project1/src/file/slang.txt";
+			String filename = "slang.txt";
 			ArrayList<SlangWord> slang = new ArrayList<SlangWord>();
 			file.readFile(slang,filename);
+			//------------------------
 			
 			
 			

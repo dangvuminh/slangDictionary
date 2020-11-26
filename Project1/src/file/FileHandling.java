@@ -13,7 +13,8 @@ import java.io.FileWriter;
 
 public class FileHandling {
 	
-	public void readFile(ArrayList<SlangWord> slang,String filename) {
+	public void readFile(ArrayList<SlangWord> slang,String filename) {//reading txt file and put it into ArrayList
+		
 		try {
 		
 			//ArrayList<SlangWord> 
@@ -21,21 +22,16 @@ public class FileHandling {
 			
 			BufferedReader br = new BufferedReader(new FileReader(filename));
 			String str ;
-			int i = 0 ;
-			//while (i<900)
 			while (true)
 			{
 				str = br.readLine();
 				
-				//slang arratlist can get null so make sure put the condition checking null before 
+				//slang arraylist can get null so make sure put the condition checking null before 
 				// the string is added
 				if(str == null)
 					break;
 				
-				slang.add(separateString(str));
-				
-				i++;
-				
+				slang.add(separateString(str));	
 			}
 			br.close();
 		}
@@ -57,9 +53,6 @@ public class FileHandling {
 				}
 				
 			}
-//		for(int i = 0 ; i<slang.keyWord.size();i++) {
-//			System.out.println(slang.keyWord.get(i));
-//		}
 			return slang;
 		
 	}
@@ -119,14 +112,14 @@ public class FileHandling {
 	}
 	
 	public void writeHistory(String line) {
-		String file = "/Users/macbookpro/git/slangDictionary/Project1/src/file/history.txt";
+		String file = "history.txt";
 		FileHandling fileHndl = new FileHandling();
 		fileHndl.writeOnFile(file, line);
 	}
 	
 	public void printHistory() {
 		try {
-			BufferedReader br = new BufferedReader(new FileReader("/Users/macbookpro/git/slangDictionary/Project1/src/file/history.txt"));
+			BufferedReader br = new BufferedReader(new FileReader("history.txt"));
 			String str ;
 			while (true)
 			{
