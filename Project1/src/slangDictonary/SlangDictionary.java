@@ -9,6 +9,7 @@ import java.lang.Math;
 
 public class SlangDictionary {
 	
+	// For service 1 : Find the meaning when you enter the slang
 	static void SearchKey(String key,ArrayList<SlangWord> slang) {
 		int count = 0 ;
 		for(int i = 0 ; i<slang.size();i++) {
@@ -26,6 +27,7 @@ public class SlangDictionary {
 		System.out.println("Cannot find any");
 	}
 	
+	//For service 2: Enter a word then find all the slang 
 	static void findAllSlangs(String key,ArrayList<SlangWord> slang) {
 		int count = 0;
 		for(int i = 0 ; i < slang.size(); i++) {
@@ -43,28 +45,29 @@ public class SlangDictionary {
 		System.out.println("Sorry!Can't find any match");
 	}
 	
+	//For service 4: add a new slang
 	static void addSlang(String key,String definition,ArrayList<SlangWord> slang) {
 		int count = 0 ;
 		for(int i = 0 ; i<slang.size();i++) {
 			//always checking null 
 			if(slang.get(i) == null)
 				break;
-			
+			// if entered slang already existed
 			if(slang.get(i).slangWord.compareTo(key) == 0) {
 				System.out.println("This slang has already existed!");
 				System.out.println("1)Override it ....2)Duplicate it");
 				
 				 Scanner myLine = new Scanner(System.in);
 				 int num = myLine.nextInt();
-				 if(num == 1) {
-					 editSlang(key,key,definition,slang);
+				 if(num == 1) { //you want to override
+					 editSlang(key,key,definition,slang);//Use edit function to override the slang
 					 System.out.println("Overriden!!");
-						
+					//you want to duplicate	
 				 } else {
 					 FileHandling file  = new FileHandling();
 					 String filename = "/Users/macbookpro/git/slangDictionary/Project1/src/file/slang.txt";
 					 String newLine = slang.get(i).slangWord + "`" + slang.get(i).definition;
-					 file.writeOnFile(filename, newLine);
+					 file.writeOnFile(filename, newLine);//append at the end of file
 					 System.out.println("Duplicated!!");
 						
 				 }
@@ -73,7 +76,7 @@ public class SlangDictionary {
 				break;
 				
 			}
-			}
+			} //you can add a new one cuz the entered word is totally new
 		if(count == 0) {
 			FileHandling fileHndl =  new FileHandling();
 			String file = "/Users/macbookpro/git/slangDictionary/Project1/src/file/slang.txt";
@@ -87,21 +90,21 @@ public class SlangDictionary {
 		String filename ="/Users/macbookpro/git/slangDictionary/Project1/src/file/slang.txt";
 		FileHandling fileHndl = new FileHandling();
 		int count = 0 ;
-		fileHndl.deleteFile(filename);
-		fileHndl.createFile(filename);
+		fileHndl.deleteFile(filename);//delete the file before a slang is chosen to be removed
+		fileHndl.createFile(filename);// create a new one 
 		for(int i = 0 ; i<slang.size();i++) {
 			//always checking null 
 			if(slang.get(i) == null)
 				break;
 			if(slang.get(i).slangWord.compareTo(key) != 0) {
 				
-				String line = slang.get(i).slangWord + "`" + slang.get(i).definition;
-				fileHndl.writeOnFile(filename, line);
+				String line = slang.get(i).slangWord + "`" + slang.get(i).definition;//combine 2 strings because the line in txt file is separated in the arrayList
+				fileHndl.writeOnFile(filename, line);// make a new file after doing the deletion 
 			} else {
 				count++;
 			}  
 		}
-		if(count == 0) {
+		if(count == 0) { // you can't find any match the key you want to remove
 			System.out.println("Found no slang to delete");
 		} else {
 			System.out.println("Deleted the slang");
@@ -112,8 +115,8 @@ public class SlangDictionary {
 		String filename ="/Users/macbookpro/git/slangDictionary/Project1/src/file/slang.txt";
 		FileHandling fileHndl = new FileHandling();
 		int count = 0 ;
-		fileHndl.deleteFile(filename);
-		fileHndl.createFile(filename);
+		fileHndl.deleteFile(filename);//delete the file before a slang is chosen to be removed
+		fileHndl.createFile(filename);// create a new one
 		for(int i = 0 ; i<slang.size();i++) {
 			//always checking null 
 			if(slang.get(i).slangWord != null) {
@@ -161,7 +164,7 @@ public class SlangDictionary {
         // generate random numbers within 1 to 10 
         for(int i = 0 ; i<slang.size();i++) {
            max++;
-            // Output is different everytime this code is executed 
+          
           
         } 
         int range = max - min + 1; 
@@ -181,32 +184,33 @@ public class SlangDictionary {
         return line;
 	}
 	
+	//this function do the giving the 4 answers randomly based on the correct answer
 	static void arrangeRiddle(String rightAnswer,ArrayList<SlangWord> slang,int type) {
 		String[] answers = new String[4];
 		int max = 3; 
         int min = 0; 
         int range = max - min + 1; 
-        int rand = (int)(Math.random() * range) + min;
+        int rand = (int)(Math.random() * range) + min;// chose a random number for correct answer
         String answer;
-        if(type == 1) {
+        if(type == 1) { //type 1 is for service 9
         	 answer = randSlang(slang).definition;
-        } else {
+        } else { //type 2 is for service 10
         	 answer = randSlang(slang).slangWord;
         }
         for(int i = 0 ;i < answers.length ;i++) {
-        	if(i==rand) {
+        	if(i==rand) { // this is the index for the correct answer
         		
         		answers[i]= rightAnswer;
         		System.out.println(i+1 +")" + answers[i]);
         		
         	} else {
         		answers[i]=answer;
-        		System.out.println(i+1 +")" + answers[i]);
+        		System.out.println(i+1 +")" + answers[i]);// for all the wrong answers left
         	}
         }
         System.out.println("----------Guessing Time--------");
         int yourAnswer = rand + 1;
-        checkAnswer(yourAnswer);
+        checkAnswer(yourAnswer);// para 'yourAnswer'  is to help the function check know which one is correct out of 4'
   
 	}
 	
@@ -221,30 +225,19 @@ public class SlangDictionary {
 			System.out.println("You are not lucky this time :(( Let's try again");
 		}
 	}
-	static void riddle2(ArrayList<SlangWord> slang) {
-		String randWord = randSlang(slang).definition;
-		 for(int i = 0 ; i<slang.size();i++) {
-			 if(slang.get(i).definition.compareToIgnoreCase(randWord)==0) {
-				 System.out.println("What slang should this definition " + randWord +  " be transformed ?");
-				 System.out.println();
-				 arrangeRiddle(slang.get(i).slangWord,slang,2);
-				
-				 break;
-			 }
-		 }
+	static void riddle2(ArrayList<SlangWord> slang) { //for service 10
+		SlangWord randWord = randSlang(slang);// help give a random definition for the question
+				 System.out.println("What slang should this definition " + randWord.definition +  " be transformed ?");
+				 System.out.println();	
+				 arrangeRiddle(randWord.slangWord,slang,2);//ranWord.slangWord is the answer for the question
 	}
 	
-	static void riddle1(ArrayList<SlangWord> slang) {
-		String randWord = randSlang(slang).slangWord;
-		 for(int i = 0 ; i<slang.size();i++) {
-			 if(slang.get(i).slangWord.compareToIgnoreCase(randWord)==0) {
+	static void riddle1(ArrayList<SlangWord> slang) { //for service 9
+		SlangWord randWord = randSlang(slang);// help give a random slang word for the question
+		
 				 System.out.println("What does this slang " + randWord +  " mean ?");
 				 System.out.println();
-				 arrangeRiddle(slang.get(i).definition,slang,1);
-				
-				 break;
-			 }
-		 }
+				 arrangeRiddle(randWord.definition,slang,1);
 	}
 	
 	public static void main(String[] args) {
@@ -311,7 +304,9 @@ public class SlangDictionary {
 				System.out.println("Enter the key word you want to add please:");
 				myLine = new Scanner(System.in);
 				String key = myLine.nextLine();
+				file.writeHistory(key);
 				System.out.println("Enter the definition you want to add please:");
+				file.writeHistory(key);
 				String definition = myLine.nextLine();
 				addSlang(key,definition,slang);
 				break;
@@ -320,14 +315,17 @@ public class SlangDictionary {
 				System.out.println("Enter the key word you want to change:");
 				myLine = new Scanner(System.in);
 				String key = myLine.nextLine();
+				file.writeHistory(key);
 				
 				System.out.println("Enter the new key word you:");
 				myLine = new Scanner(System.in);
 				String newKey = myLine.nextLine();
+				file.writeHistory(key);
 				
 				System.out.println("Enter the definition for your new slang:");
 				myLine = new Scanner(System.in);
 				String newDefinition = myLine.nextLine();
+				file.writeHistory(key);
 				
 				editSlang(key,newKey,newDefinition,slang);
 				break;
@@ -336,6 +334,7 @@ public class SlangDictionary {
 				System.out.println("Enter the key word you want to delete please:");
 				myLine = new Scanner(System.in);
 				String key = myLine.nextLine();
+				file.writeHistory(key);
 				deleteSlang(key,slang);
 				break;
 			}
@@ -372,6 +371,7 @@ public class SlangDictionary {
 			 System.out.println("0.Escape  1.Continue on with the program");
 			 myLine = new Scanner(System.in);
 			 int key = myLine.nextInt();
+			 
 			 if(key == 0) {
 				 click = 0;
 			 } 

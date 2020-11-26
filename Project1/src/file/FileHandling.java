@@ -45,7 +45,7 @@ public class FileHandling {
 		
 	}
 	
-	static SlangWord separateString(String line) {
+	static SlangWord separateString(String line) {//separate a line in txt file into 2 parts before and after `
 		SlangWord slang = new SlangWord();
 		for(int i = 0 ; i<line.length();i++) {
 			
@@ -64,20 +64,20 @@ public class FileHandling {
 		
 	}
 	
-	static ArrayList<String> getKeyWord(String definition) {
+	static ArrayList<String> getKeyWord(String definition) {//separate every single word in a line after omitting space and marks
 		int j = 0;
 		boolean isEndingSpace = true;
 		ArrayList<String>  arr = new ArrayList<String>();
 		for(int i = 0 ; i<definition.length(); i++) {
-			if(definition.charAt(i) == '|'   ) {
+			if(definition.charAt(i) == '|'   ) { //when encounter | then substring
 				arr.add(definition.substring(j, i).replaceAll("\\s+",""));
 				j=i+2;
 				isEndingSpace = false;
-			} else if(( i == definition.length()-1 )) {
+			} else if(( i == definition.length()-1 )) {//when encounter last character then substring
 				arr.add(definition.substring(j, i+1).replaceAll("\\s+",""));
 				
 			    
-			} else if(definition.charAt(i) == ' ' && isEndingSpace == true) {
+			} else if(definition.charAt(i) == ' ' && isEndingSpace == true) {//when encounter space then substring
 				arr.add(definition.substring(j, i+1).replaceAll("\\s+",""));
 				j=i;
 				isEndingSpace = true;
@@ -119,17 +119,6 @@ public class FileHandling {
 	}
 	
 	public void writeHistory(String line) {
-//		try {
-//		      FileWriter myWriter = new FileWriter("/Users/macbookpro/git/slangDictionary/Project1/src/file/history.txt",true);
-//		      System.out.println(line);
-//		      myWriter.write(line);
-//		      myWriter.write("\n");
-//		      myWriter.close();
-//		      System.out.println("Successfully wrote to the file.");
-//		    } catch (IOException e) {
-//		      System.out.println("An error occurred.");
-//		      e.printStackTrace();
-//		    }
 		String file = "/Users/macbookpro/git/slangDictionary/Project1/src/file/history.txt";
 		FileHandling fileHndl = new FileHandling();
 		fileHndl.writeOnFile(file, line);
