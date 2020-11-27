@@ -190,11 +190,6 @@ public class SlangDictionary {
         int range = max - min + 1; 
         int rand = (int)(Math.random() * range) + min;// chose a random number for correct answer
         String answer;
-        if(type == 1) { //type 1 is for service 9
-        	 answer = randSlang(slang).definition;
-        } else { //type 2 is for service 10
-        	 answer = randSlang(slang).slangWord;
-        }
         for(int i = 0 ;i < answers.length ;i++) {
         	if(i==rand) { // this is the index for the correct answer
         		
@@ -202,6 +197,12 @@ public class SlangDictionary {
         		System.out.println(i+1 +")" + answers[i]);
         		
         	} else {
+        		//type is used to tell apart service 9 and service 10 of riddle
+        		if(type==1) {
+        			 answer = randSlang(slang).definition;
+        		} else {
+        			answer = randSlang(slang).slangWord;
+        		}
         		answers[i]=answer;
         		System.out.println(i+1 +")" + answers[i]);// for all the wrong answers left
         	}
@@ -232,13 +233,22 @@ public class SlangDictionary {
 	
 	static void riddle1(ArrayList<SlangWord> slang) { //for service 9
 		SlangWord randWord = randSlang(slang);// help give a random slang word for the question
-		
-				 System.out.println("What does this slang " + randWord +  " mean ?");
+	
+				 System.out.println("What does this slang " + randWord.slangWord +  " mean ?");
 				 System.out.println();
-				 arrangeRiddle(randWord.definition,slang,1);
+				 arrangeRiddle(randWord.definition,slang,1);		
 	}
 	
 	public static void main(String[] args) {
+		
+		//------------------------Put the data in txt file into the ArrayList
+		FileHandling file = new FileHandling();
+		String filename = "slang.txt";
+		ArrayList<SlangWord> slang = new ArrayList<SlangWord>();
+		file.readFile(slang,filename);
+		//------------------------
+
+		
 		int click=-1 ;
 		while(click != 0) {
 			SlangDictionary sl = new SlangDictionary();
@@ -253,6 +263,8 @@ public class SlangDictionary {
 			System.out.println("6.Delete a slang..");
 			System.out.println("7.Reset the list slang..");
 			System.out.println("8.Give a random slang..");
+			System.out.println("9.Riddle 1..");
+			System.out.println("10.Riddle 2..");
 			System.out.println("0.To Escape..");
 			System.out.println("Enter the number please:");
 			Scanner myLine;
@@ -260,14 +272,7 @@ public class SlangDictionary {
 			myLine = new Scanner(System.in);
 			int num = myLine.nextInt();  
 			
-			//------------------------Put the data in txt file into the ArrayList
-			FileHandling file = new FileHandling();
-			//String filename = "/Users/macbookpro/git/slangDictionary/Project1/src/file/slang.txt";
-			String filename = "slang.txt";
-			ArrayList<SlangWord> slang = new ArrayList<SlangWord>();
-			file.readFile(slang,filename);
-			//------------------------
-			
+						
 			
 			
 			switch(num) {
@@ -347,7 +352,7 @@ public class SlangDictionary {
 			}
 			case 8:{
 				System.out.println("Getting randomly....");
-				System.out.println("Random word is:" + randSlang(slang));
+				System.out.println("Random word is:" + randSlang(slang).slangWord +" : " + randSlang(slang).definition);
 				
 				break;
 			}
